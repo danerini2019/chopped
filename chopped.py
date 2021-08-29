@@ -9,12 +9,8 @@ pd.options.display.max_colwidth = None
 read = pd.read_csv('data/archive/chopped.csv')
 df = pd.DataFrame(read)
 
-appetizer_items = pd.DataFrame()
-entree_items = pd.DataFrame()
-dessert_items = pd.DataFrame()
-
 # Function that accumulates ingredients and adds episode IDs for each row
-def episode(meal):
+def accumulate_ingredients(meal):
     episodes = []
     ingredients = []
     for i in range(len(df[meal])):
@@ -27,13 +23,13 @@ def episode(meal):
     return df_ingredients
 
 # Function accumulates ingredients but cannot add episode IDs
-def accumulate_ingredients(dataframe, meal):
+def do_not_use(dataframe, meal):
     item_list = df[meal].str.split(',', -1)
     dataframe['ingredient'] = item_list.apply(pd.Series).stack().reset_index(drop = True)
         
-app_items = episode('appetizer')
-ent_items = episode('entree')
-des_items = episode('dessert')
+app_items = accumulate_ingredients('appetizer')
+ent_items = accumulate_ingredients('entree')
+des_items = accumulate_ingredients('dessert')
 
 print(app_items.head(20))
 print(ent_items.head(20))
