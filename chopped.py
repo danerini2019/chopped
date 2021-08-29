@@ -19,8 +19,6 @@ def get_ingredients(meal):
     ingredients = []
     meal_list = []
     for i in range(len(df[meal])):
-        # print(i)
-        # print(type(df[meal].iloc[i]))
         item_list = df[meal].iloc[i].split(',', -1)
         episode_id = int(str(df['season'].iloc[i]) + str(df['season_episode'].iloc[i]) + str(df['series_episode'].iloc[i]))
         for j in range(len(item_list)):
@@ -44,9 +42,9 @@ app_items = get_ingredients('appetizer')
 ent_items = get_ingredients('entree')
 des_items = get_ingredients('dessert')
 all = app_items.append(ent_items.append(des_items))
-counts = all.value_counts().to_frame()
-
-print(counts.sort_v)
+counts = all.groupby('ingredients')['ingredients'].value_counts()
+print(counts.head(20))
+# print(counts.sort_values(by=[0]))
 
 # freq = all_basket_items['ingredients'].value_counts(bins=4)
 # print(freq)
