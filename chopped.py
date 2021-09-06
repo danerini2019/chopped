@@ -49,15 +49,9 @@ des_items = get_ingredients('dessert')
 all = app_items.append(ent_items.append(des_items))
 all = clean(all)
 ingredients_count = all.pivot_table(columns=['ingredients'], aggfunc='size').sort_values(ascending=False, ignore_index=False).reset_index()
-print(ingredients_count.head())
 ingredients_count.rename(columns = {list(ingredients_count)[1]: 'count'}, inplace = True)
-print(ingredients_count.head())
 
-rambutan = ingredients_count[ingredients_count['ingredients'].str.contains('poblano')]
+# filter tests
+poblano = ingredients_count[ingredients_count['ingredients'].str.contains('poblano')]
 unique_items = ingredients_count[ingredients_count['count'] == 1]
-print(unique_items.head(50))
 
-# freq = all_basket_items['ingredients'].value_counts(bins=4)
-# print(freq)
-
-# print(all[all['ingredients'] == 'mustard greens'])
