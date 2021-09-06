@@ -26,13 +26,18 @@ def get_ingredients(meal):
             meal_list.append(meal)
             ingredients.append(item_list[j].strip())
     df_ingredients = pd.DataFrame({'episode_id':episodes, 'ingredients':ingredients})
+    # df_ingredients = clean(df_ingredients)
     return df_ingredients
 
 # Function to add columns to ingredients
 def add_item_data(dataframe):
     dataframe['count']
 
-# 
+# Function to clean dataset
+def clean(dataframe):
+    dataframe = dataframe['ingredients'].str.lower()
+    # this turns ingredients into strings but makes it so append at all definition yield 'NoneType' error
+
 
 # Function accumulates ingredients but cannot add episode IDs
 def do_not_use(dataframe, meal):
@@ -43,14 +48,16 @@ app_items = get_ingredients('appetizer')
 ent_items = get_ingredients('entree')
 des_items = get_ingredients('dessert')
 all = app_items.append(ent_items.append(des_items))
+
+all = clean(all)
+print(all.dtypes)
 # all.groupby(all.ingredients.tolist(),as_index=False).size()
 ingredients_count = all.pivot_table(columns=['ingredients'], aggfunc='size').sort_values(ascending=False, ignore_index=False)
 ingredients_count.columns = ['ingredients', 'count']
-print(ingredients_count.head(50))
-# print(ingredients_count[ingredients_count['ingredients'] == 'pablano'])
-# print(counts.sort_values(by=[0]))
+print(ingredients_count.head(10))
+rambutan = ingredients_count[ingredients_count['ingredients'] == 'rambutan']
 
-
+print(rambutan)
 # freq = all_basket_items['ingredients'].value_counts(bins=4)
 # print(freq)
 
