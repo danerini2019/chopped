@@ -35,8 +35,9 @@ def add_item_data(dataframe):
 
 # Function to clean dataset
 def clean(dataframe):
-    dataframe = dataframe['ingredients'].str.lower()
-    # this turns ingredients into strings but makes it so append at all definition yield 'NoneType' error
+    dataframe['ingredients'] = dataframe['ingredients'].str.lower()
+    # Yields none?
+    
 
 
 # Function accumulates ingredients but cannot add episode IDs
@@ -48,16 +49,15 @@ app_items = get_ingredients('appetizer')
 ent_items = get_ingredients('entree')
 des_items = get_ingredients('dessert')
 all = app_items.append(ent_items.append(des_items))
-
+print(all.head())
 all = clean(all)
-print(all.dtypes)
+print(all)
 # all.groupby(all.ingredients.tolist(),as_index=False).size()
 ingredients_count = all.pivot_table(columns=['ingredients'], aggfunc='size').sort_values(ascending=False, ignore_index=False)
 ingredients_count.columns = ['ingredients', 'count']
 print(ingredients_count.head(10))
-rambutan = ingredients_count[ingredients_count['ingredients'] == 'rambutan']
-
-print(rambutan)
+# rambutan = ingredients_count[ingredients_count["ingredients"] == "rambutan"]
+# print(rambutan)
 # freq = all_basket_items['ingredients'].value_counts(bins=4)
 # print(freq)
 
