@@ -29,7 +29,7 @@ def get_ingredients(meal):
     # df_ingredients = clean(df_ingredients)
     return df_ingredients
 
-# Function to add columns to ingredients
+# Function to add columns to ingredients - Not used atm
 def add_item_data(dataframe):
     dataframe['count']
 
@@ -37,9 +37,6 @@ def add_item_data(dataframe):
 def clean(dataframe):
     dataframe['ingredients'] = dataframe['ingredients'].str.lower()
     return dataframe
-    # Yields none?
-
-
 
 # Function accumulates ingredients but cannot add episode IDs
 def do_not_use(dataframe, meal):
@@ -51,13 +48,15 @@ ent_items = get_ingredients('entree')
 des_items = get_ingredients('dessert')
 all = app_items.append(ent_items.append(des_items))
 all = clean(all)
-# all.groupby(all.ingredients.tolist(),as_index=False).size()
-ingredients_count = all.pivot_table(columns=['ingredients'], aggfunc='size').sort_values(ascending=False, ignore_index=False)
-columns_names = ['ingredients', 'count']
+ingredients_count = all.pivot_table(columns=['ingredients'], aggfunc='size').sort_values(ascending=False, ignore_index=False).reset_index()
+print(ingredients_count.head())
 ingredients_count.rename(columns = {list(ingredients_count)[1]: 'count'}, inplace = True)
-print(ingredients_count.head(10))
-# rambutan = ingredients_count[ingredients_count["ingredients"] == "rambutan"]
-# print(rambutan)
+print(ingredients_count.head())
+
+rambutan = ingredients_count[ingredients_count['ingredients'].str.contains('poblano')]
+unique_items = ingredients_count[ingredients_count['count'] == 1]
+print(unique_items.head(50))
+
 # freq = all_basket_items['ingredients'].value_counts(bins=4)
 # print(freq)
 
