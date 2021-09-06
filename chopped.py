@@ -36,8 +36,9 @@ def add_item_data(dataframe):
 # Function to clean dataset
 def clean(dataframe):
     dataframe['ingredients'] = dataframe['ingredients'].str.lower()
+    return dataframe
     # Yields none?
-    
+
 
 
 # Function accumulates ingredients but cannot add episode IDs
@@ -49,12 +50,11 @@ app_items = get_ingredients('appetizer')
 ent_items = get_ingredients('entree')
 des_items = get_ingredients('dessert')
 all = app_items.append(ent_items.append(des_items))
-print(all.head())
 all = clean(all)
-print(all)
 # all.groupby(all.ingredients.tolist(),as_index=False).size()
 ingredients_count = all.pivot_table(columns=['ingredients'], aggfunc='size').sort_values(ascending=False, ignore_index=False)
-ingredients_count.columns = ['ingredients', 'count']
+columns_names = ['ingredients', 'count']
+ingredients_count.rename(columns = {list(ingredients_count)[1]: 'count'}, inplace = True)
 print(ingredients_count.head(10))
 # rambutan = ingredients_count[ingredients_count["ingredients"] == "rambutan"]
 # print(rambutan)
