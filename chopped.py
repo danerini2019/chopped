@@ -1,5 +1,5 @@
 import pandas as pd
-import matplotlib as plt
+import matplotlib.pyplot as plt
 import seaborn as sb
 import numpy as np
 
@@ -10,8 +10,6 @@ read = pd.read_csv('data/archive/chopped.csv')
 df = pd.DataFrame(read)
 df['dessert'].replace('', np.nan, inplace=True)
 df.dropna(subset=['dessert'], inplace=True)
-
-# print(df['dessert'].iloc[555])
 
 # Function that accumulates ingredients and adds episode IDs for each row
 def get_ingredients(meal):
@@ -48,10 +46,28 @@ ent_items = get_ingredients('entree')
 des_items = get_ingredients('dessert')
 all = app_items.append(ent_items.append(des_items))
 all = clean(all)
-ingredients_count = all.pivot_table(columns=['ingredients'], aggfunc='size').sort_values(ascending=False, ignore_index=False).reset_index()
-ingredients_count.rename(columns = {list(ingredients_count)[1]: 'count'}, inplace = True)
+ingredients = all.pivot_table(columns=['ingredients'], aggfunc='size').sort_values(ascending=False, ignore_index=False).reset_index()
+ingredients.rename(columns = {list(ingredients)[1]: 'count'}, inplace = True)
 
 # filter tests
-poblano = ingredients_count[ingredients_count['ingredients'].str.contains('poblano')]
-unique_items = ingredients_count[ingredients_count['count'] == 1]
+poblano = ingredients[ingredients['ingredients'].str.contains('poblano')]
+unique_items = ingredients[ingredients['count'] == 1]
+repeat_items = ingredients[ingredients['count'] > 1]
+
+# bar plot
+plt.style.use('ggplot')
+
+x = repeat_items.ingredients.to_list()
+count = repeat_items.count.to_list()
+
+x_pos = [i for i, _ in enumerate(x)]
+
+plt.bar(x_pos, count, color='green')
+plt.xlabel("Ingredient")
+plt.ylabel("# of Appearences")
+plt.title("Chopped Ingredient Frequency")
+
+plt.xticks(x_pos, x)
+
+plt.show()
 
