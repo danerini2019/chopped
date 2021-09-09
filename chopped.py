@@ -56,6 +56,9 @@ ingredients_set = pd.read_csv('data/archive/food.csv')
 df_compare = pd.DataFrame(ingredients_set)
 pprint.pprint(df_compare[['Category', 'Description']].iloc[-100:])
 
+categories = df_compare['Category'].unique().sortby(by=['Category'])
+print(len(categories))
+
 
 # Plotting section
 
