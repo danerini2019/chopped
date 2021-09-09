@@ -57,17 +57,22 @@ repeat_items = ingredients[ingredients['count'] > 1]
 # bar plot
 plt.style.use('ggplot')
 
-x = repeat_items.ingredients.to_list()
-count = repeat_items.count.to_list()
+x = repeat_items['ingredients'][:100]
+count = repeat_items['count'][:100]
 
 x_pos = [i for i, _ in enumerate(x)]
+print(type(x))
+print(type(count))
+print(type(x_pos))
+print(count)
 
 plt.bar(x_pos, count, color='green')
 plt.xlabel("Ingredient")
 plt.ylabel("# of Appearences")
 plt.title("Chopped Ingredient Frequency")
 
-plt.xticks(x_pos, x)
+
+plt.xticks(x_pos, x, rotation=90)
 
 plt.show()
 
