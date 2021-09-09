@@ -18,4 +18,4 @@ print(rankings_pd)
 rankings_pd.rename(columns = {'test':'TEST'}, inplace = True)
    
 # After renaming the columns
-print("\nAfter modifying first column:\n", rankings_pd)
+print("\nAfter modifying first column:\n", rankings_pd.columns)
