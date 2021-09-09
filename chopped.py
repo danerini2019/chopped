@@ -2,12 +2,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sb
 import numpy as np
+import pprint
 
-pd.set_option('display.max_columns', None, 'display.max_columns', None)  
+pd.set_option('display.max_columns', None, 'display.max_rows', None)  
 pd.options.display.max_colwidth = None
 
-read = pd.read_csv('data/archive/chopped.csv')
-df = pd.DataFrame(read)
+chopped_read = pd.read_csv('data/archive/chopped.csv')
+df = pd.DataFrame(chopped_read)
 df['dessert'].replace('', np.nan, inplace=True)
 df.dropna(subset=['dessert'], inplace=True)
 
@@ -27,11 +28,7 @@ def get_ingredients(meal):
     # df_ingredients = clean(df_ingredients)
     return df_ingredients
 
-# Function to add columns to ingredients - Not used atm
-def add_item_data(dataframe):
-    dataframe['count']
-
-# Function to clean dataset
+# Function to clean dataset - will add functionality that will add columns with added information
 def clean(dataframe):
     dataframe['ingredients'] = dataframe['ingredients'].str.lower()
     return dataframe
@@ -54,25 +51,26 @@ poblano = ingredients[ingredients['ingredients'].str.contains('poblano')]
 unique_items = ingredients[ingredients['count'] == 1]
 repeat_items = ingredients[ingredients['count'] > 1]
 
-# bar plot
-plt.style.use('ggplot')
+# bar plot for frequency of item appearence
+# plt.style.use('ggplot')
 
-x = repeat_items['ingredients'][:100]
-count = repeat_items['count'][:100]
+# x = repeat_items['ingredients'][:50]
+# count = repeat_items['count'][:50]
 
-x_pos = [i for i, _ in enumerate(x)]
-print(type(x))
-print(type(count))
-print(type(x_pos))
-print(count)
+# x_pos = [i for i, _ in enumerate(x)]
 
-plt.bar(x_pos, count, color='green')
-plt.xlabel("Ingredient")
-plt.ylabel("# of Appearences")
-plt.title("Chopped Ingredient Frequency")
+# plt.bar(x_pos, count, color='green')
+# plt.xlabel("Ingredient")
+# plt.ylabel("# of Appearences")
+# plt.title("Chopped Ingredient Frequency")
 
 
-plt.xticks(x_pos, x, rotation=90)
+# plt.xticks(x_pos, x, rotation=90)
 
-plt.show()
+# plt.show()
+# plt.close()
 
+# ingredients_set = pd.read_csv('data/archive/ingredients v1.csv')
+ingredients_set = pd.read_csv('data/archive/food.csv')
+df_compare = pd.DataFrame(ingredients_set)
+pprint.pprint(df_compare[['Category', 'Description']].iloc[-100:])
