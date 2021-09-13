@@ -51,13 +51,7 @@ poblano = ingredients[ingredients['ingredients'].str.contains('poblano')]
 unique_items = ingredients[ingredients['count'] == 1]
 repeat_items = ingredients[ingredients['count'] > 1]
 
-# ingredients_set = pd.read_csv('data/archive/ingredients v1.csv')
-ingredients_set = pd.read_csv('data/archive/food.csv')
-df_compare = pd.DataFrame(ingredients_set)
-pprint.pprint(df_compare[['Category', 'Description']].iloc[-100:])
 
-categories = df_compare['Category'].unique().sortby(by=['Category'])
-print(len(categories))
 
 
 # Plotting section
