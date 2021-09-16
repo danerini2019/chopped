@@ -51,11 +51,16 @@ poblano = ingredients[ingredients['ingredients'].str.contains('poblano')]
 unique_items = ingredients[ingredients['count'] == 1]
 repeat_items = ingredients[ingredients['count'] > 1]
 
+# Open food dataset
+open_food_data_read = pd.read_csv('data/fr.openfoodfacts.org.products.csv', header=None, sep=',')
+df_food = pd.DataFrame(open_food_data_read)
+print(df_food['product_name'].iloc[5:100])
+
+
 
 
 
 # Plotting section
-
 
 # bar plot for frequency of item appearence
 # plt.style.use('ggplot')
