@@ -50,13 +50,20 @@ ingredients.rename(columns = {list(ingredients)[1]: 'count'}, inplace = True)
 poblano = ingredients[ingredients['ingredients'].str.contains('poblano')]
 unique_items = ingredients[ingredients['count'] == 1]
 repeat_items = ingredients[ingredients['count'] > 1]
-
-print(repeat_items.head(100))
+total_ingredients = ingredients['count'].sum()
+print(total_ingredients)
+chicken_items = ingredients[ingredients['ingredients'].str.contains('chicken')]['count'].sum()
+pork_items = ingredients[ingredients['ingredients'].str.contains('pork')]['count'].sum()
+beef_items = ingredients[ingredients['ingredients'].str.contains('beef')]['count'].sum()
+fish_items = ingredients[ingredients['ingredients'].str.contains('fish')]['count'].sum()
+print(fish_items)
+meat_item_total = chicken_items + pork_items + beef_items + fish_items
+print(meat_item_total)
 
 # Open food dataset
-# open_food_data_read = pd.read_csv('data/fr.openfoodfacts.org.products.csv', header=None, sep=',')
-# df_food = pd.DataFrame(open_food_data_read)
-# print(df_food['product_name'].iloc[5:100])
+open_food_data_read = pd.read_csv('data/fr.openfoodfacts.org.products.csv', header=None, sep=',')
+df_food = pd.DataFrame(open_food_data_read)
+print(df_food.columns)
 
 
 
