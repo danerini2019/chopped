@@ -64,6 +64,7 @@ print(meat_item_total)
 open_food_data_read = pd.read_csv('data/fr.openfoodfacts.org.products.csv', header=None, sep=',')
 df_food = pd.DataFrame(open_food_data_read)
 print(df_food.columns)
+print(df_food.columns)
 
 
 
