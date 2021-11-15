@@ -70,6 +70,8 @@ print(df_food.columns)
 
 
 
+
+
 # Plotting section
 
 # bar plot for frequency of item appearence
