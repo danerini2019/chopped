@@ -45,6 +45,7 @@ all = app_items.append(ent_items.append(des_items))
 all = clean(all)
 ingredients = all.pivot_table(columns=['ingredients'], aggfunc='size').sort_values(ascending=False, ignore_index=False).reset_index()
 ingredients.rename(columns = {list(ingredients)[1]: 'count'}, inplace = True)
+print(ingredients)
 
 # filter tests
 poblano = ingredients[ingredients['ingredients'].str.contains('poblano')]
@@ -61,10 +62,10 @@ meat_item_total = chicken_items + pork_items + beef_items + fish_items
 print(meat_item_total)
 
 # Open food dataset
-open_food_data_read = pd.read_csv('data/fr.openfoodfacts.org.products.csv', header=None, sep=',')
-df_food = pd.DataFrame(open_food_data_read)
-print(df_food.columns)
-print(df_food.columns)
+# open_food_data_read = pd.read_csv('data/fr.openfoodfacts.org.products.csv', header=None, sep=',')
+# df_food = pd.DataFrame(open_food_data_read)
+# print(df_food.columns)
+# print(df_food.columns)
 
 
 
